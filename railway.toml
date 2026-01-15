@@ -1,0 +1,13 @@
+# Railway.app Deployment Configuration
+# This file helps Railway.app deploy your app correctly
+
+builder = "dockerfile"
+
+[deploy]
+startCommand = "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+healthcheckPath = "/health"
+healthcheckTimeout = 30
+
+[env]
+PYTHONUNBUFFERED = "1"
+PYTHONDONTWRITEBYTECODE = "1"
