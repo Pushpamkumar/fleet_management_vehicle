@@ -15,8 +15,12 @@ def create_app():
         openapi_url="/api/openapi.json"
     )
     
-    # Initialize database tables
-    init_db()
+    # Initialize database tables (non-blocking)
+    try:
+        init_db()
+    except Exception as e:
+        print(f"⚠️  Warning: Database initialization failed: {e}")
+        # Continue anyway - app will still work for non-DB operations
     
     # Add CORS middleware
     origins = os.getenv("CORS_ORIGINS", "http://localhost:3000,http://localhost:8000").split(",")
