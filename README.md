@@ -2,6 +2,18 @@
 
 Production-grade backend system for fleet and mobility operations, simulating real-world challenges similar to Ridecell's platform.
 
+## 🌐 **LIVE API - Now Online!**
+
+### **Production URLs:**
+- 🚀 **Live API Base**: https://fleetmanagementvehicle-production-9176.up.railway.app/
+- 📖 **Interactive Docs (Swagger UI)**: https://fleetmanagementvehicle-production-9176.up.railway.app/api/docs
+- 📚 **API Documentation (ReDoc)**: https://fleetmanagementvehicle-production-9176.up.railway.app/api/redoc
+- 🏥 **Health Check**: https://fleetmanagementvehicle-production-9176.up.railway.app/health
+
+**Status**: ✅ **LIVE & OPERATIONAL**
+
+---
+
 ## Table of Contents
 
 1. [Overview](#overview)
@@ -58,58 +70,87 @@ Redis (Caching + Distributed Locks)
 ### Technology Stack
 
 - **Framework**: FastAPI (async Python)
-- **Database**: PostgreSQL with ACID transactions
+- **Database**: SQLite (development) / PostgreSQL (production)
 - **ORM**: SQLAlchemy 2.0
 - **Authentication**: JWT with role-based access
-- **Caching**: Redis
+- **Caching**: Redis (optional)
 - **Server**: Uvicorn
 - **Testing**: pytest with async support
+- **Deployment**: Docker + Railway.app
+
+---
+
+## 🚀 Quick Access
+
+### **Try the Live API Right Now!**
+
+No installation needed - just use the live URLs:
+
+1. **View API Docs**: https://fleetmanagementvehicle-production-9176.up.railway.app/api/docs
+   - Try endpoints directly in your browser
+   - See request/response examples
+
+2. **Check Health Status**: https://fleetmanagementvehicle-production-9176.up.railway.app/
+   - Verify the API is running
+
+3. **Use with Postman/cURL**:
+   ```bash
+   # Health check
+   curl https://fleetmanagementvehicle-production-9176.up.railway.app/health
+   
+   # Register user
+   curl -X POST https://fleetmanagementvehicle-production-9176.up.railway.app/api/auth/register \
+     -H "Content-Type: application/json" \
+     -d '{"username":"user","email":"user@example.com","password":"Pass123!"}'
+   ```
 
 ---
 
 ## Getting Started
 
-### Prerequisites
+### Prerequisites (for local development)
 
-- Python 3.11+
-- PostgreSQL 13+
-- Redis 7+
+- Python 3.9+
+- PostgreSQL 13+ (optional, SQLite works)
+- Redis 7+ (optional for caching)
 - Docker & Docker Compose (optional)
 
 ### Installation
 
-#### Option 1: Docker (Recommended)
+#### Option 1: Use Live API (No Setup Needed!)
+
+Just visit: https://fleetmanagementvehicle-production-9176.up.railway.app/api/docs
+
+#### Option 2: Docker (Recommended for Local)
 
 ```bash
 # Clone repository
-git clone <repo>
-cd fleet-management
+git clone https://github.com/Pushpamkumar/fleet_management_vehicle.git
+cd fleet-management-vehicle
 
 # Start all services
 docker-compose up -d
 
-# Database is automatically initialized
 # API available at http://localhost:8000
 ```
 
-#### Option 2: Local Setup
+#### Option 3: Local Setup
 
 ```bash
-# Install dependencies
+# Install Python dependencies
 pip install -r requirements.txt
 
-# Set up PostgreSQL
-createdb fleet_management
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
-# Create .env file with database credentials
-cp .env.example .env
-# Edit .env with your database URL
+# Install requirements
+pip install -r requirements.txt
 
-# Run migrations (optional, models auto-create tables)
-# Or just start the app
-
-# Start server
+# Start server (uses SQLite by default)
 python -m uvicorn app.main:app --reload
+
+# API available at http://localhost:8000
 ```
 
 ### Configuration
@@ -117,7 +158,12 @@ python -m uvicorn app.main:app --reload
 Key environment variables (see `.env`):
 
 ```env
+# Use SQLite (default)
+DATABASE_URL=sqlite:///./fleet_management.db
+
+# Or use PostgreSQL
 DATABASE_URL=postgresql://user:password@localhost:5432/fleet_management
+
 SECRET_KEY=your-secret-key-for-jwt
 REDIS_URL=redis://localhost:6379/0
 ACCESS_TOKEN_EXPIRE_MINUTES=30
@@ -126,6 +172,10 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 ---
 
 ## API Endpoints
+
+### Live API
+
+All endpoints available at: **https://fleetmanagementvehicle-production-9176.up.railway.app**
 
 ### Authentication
 
