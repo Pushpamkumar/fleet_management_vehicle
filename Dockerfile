@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.10-slim
 
 WORKDIR /app
 
@@ -11,9 +11,8 @@ ENV PYTHONUNBUFFERED=1 \
 # Copy requirements first (for better caching)
 COPY requirements.txt .
 
-# Install Python dependencies (minimal system deps needed)
-RUN pip install --upgrade pip setuptools && \
-    pip install -r requirements.txt
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY . .
